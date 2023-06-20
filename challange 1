@@ -10,14 +10,10 @@ typedef struct data_packet_t {
     uint16_t crc;
 } data_packet_t;
 
-// Calculates the CRC value for a data packet
 uint16_t calculateCRC(const data_packet_t* packet) {
-    // Pseudo code for CRC calculation
     uint16_t crc = 0;
-    // Iterate through the packet's data
     for (int i = 0; i < packet->data_length; i++) {
-        crc = crc ^ packet->data[i]; // XOR the data with the current CRC value
-        // Pseudo code for bit shifting and XOR
+        crc = crc ^ packet->data[i]; 
         for (int j = 0; j < 8; j++) {
             if (crc & 0x0001) {
                 crc = (crc >> 1) ^ 0xA001;
@@ -29,7 +25,6 @@ uint16_t calculateCRC(const data_packet_t* packet) {
     return crc;
 }
 
-// Checks if a data packet is corrupted
 bool isPacketCorrupted(const data_packet_t* packet) {
     uint16_t calculatedCRC = calculateCRC(packet);
     return (calculatedCRC != packet->crc);
