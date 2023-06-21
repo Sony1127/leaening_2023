@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Student {
+    char name[50];
+    int age;
+};
+
+void modifyStudent(struct Student* student) {
+    printf("Enter student name: ");
+    scanf(" %[^\n]s", student->name);
+
+    printf("Enter student age: ");
+    scanf("%d", &(student->age));
+
+}
+
+struct Student* createAndModifyStudent() {
+    struct Student* student = (struct Student*)malloc(sizeof(struct Student));
+
+    if (student == NULL) {
+        printf("Memory allocation failed.\n");
+        return NULL;
+    }
+
+    modifyStudent(student);
+
+    return student;
+}
+
+int main() {
+    struct Student* studentPtr;
+
+    studentPtr = createAndModifyStudent();
+
+    if (studentPtr != NULL) {
+        printf("\nModified student details:\n");
+        printf("Name: %s\n", studentPtr->name);
+        printf("Age: %d\n", studentPtr->age);
+
+        free(studentPtr);
+    }
+
+    return 0;
+}

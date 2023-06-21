@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Student {
+    int rollno;
+    char name[20];
+    float marks;
+};
+
+struct Student *deleteStudent(struct Student *students, int *numStudents) {
+    if (*numStudents <= 0) {
+        printf("No students to delete.\n");
+        return students; 
+    }
+
+    (*numStudents)--; 
+
+    struct Student *temp = malloc((*numStudents) * sizeof(struct Student));
+    if (temp == NULL) {
+        printf("Memory allocation failed.\n");
+        return students; 
+    }
+
+    for (int i = 0; i < *numStudents; i++) {
+        temp[i] = students[i + 1];
+    }
+
+    free(students);
+    return temp;
+}
+
+void displayStudents(const struct Student *students, int numStudents) {
+    printf("\nStudent details:\n");
+    for (int i = 0; i < numStudents; i++) {
+        printf("Roll No: %d, Name: %s, Marks: %.2f\n",
+               students[i].rollno, students[i].name, students[i].marks);
+    }
+}
+
+int main() {
+    int numStudents = 0;
+    struct Student *students = NULL;
+
+    students = deleteStudent(students, &numStudents);
+    displayStudents(students, numStudents);
+
+    free(students);
+    return 0;
+}

@@ -1,0 +1,61 @@
+#include <stdio.h>
+
+#define MAX_STUDENTS 50
+
+struct Student {
+    char name[50];
+    float marks;
+};
+
+float calculateAverage(struct Student students[], int n) {
+    float sum = 0.0;
+    for (int i = 0; i < n; i++) {
+        sum += students[i].marks;
+    }
+    return sum / n;
+}
+
+void printStudentsAboveAverage(struct Student students[], int n, float average) {
+    printf("Students scoring above average marks:\n");
+    for (int i = 0; i < n; i++) {
+        if (students[i].marks > average) {
+            printf("Name: %s\nMarks: %.2f\n", students[i].name, students[i].marks);
+        }
+    }
+}
+
+void printStudentsBelowAverage(struct Student students[], int n, float average) {
+    printf("Students scoring below average marks:\n");
+    for (int i = 0; i < n; i++) {
+        if (students[i].marks < average) {
+            printf("Name: %s\nMarks: %.2f\n", students[i].name, students[i].marks);
+        }
+    }
+}
+
+int main() {
+    int n;
+    struct Student students[MAX_STUDENTS];
+
+    printf("Enter the number of students: ");
+    scanf("%d", &n);
+
+    printf("Enter details of students:\n");
+    for (int i = 0; i < n; i++) {
+        printf("Student %d:\n", i + 1);
+        printf("Name: ");
+        scanf(" %[^\n]s", students[i].name);
+        printf("Marks: ");
+        scanf("%f", &students[i].marks);
+    }
+
+    float average = calculateAverage(students, n);
+
+    printf("\nAverage marks: %.2f\n\n", average);
+
+    printStudentsAboveAverage(students, n, average);
+    printf("\n");
+    printStudentsBelowAverage(students, n, average);
+
+    return 0;
+}

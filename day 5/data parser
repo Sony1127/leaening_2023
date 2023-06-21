@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_DATA_LENGTH 100
+
+typedef struct {
+    int sensorID;
+    float temperature;
+    int humidity;
+    int lightIntensity;
+} SensorInfo;
+
+void parseData(const char* data, SensorInfo* sensorInfo) {
+    char temp[MAX_DATA_LENGTH];
+    char* token;
+
+    strncpy(temp, data, MAX_DATA_LENGTH);
+
+    token = strtok(temp, "-");
+    sensorInfo->sensorID = atoi(token + 1);  
+
+    token = strtok(NULL, "-");
+    sscanf(token, "T:%f", &sensorInfo->temperature);
+    token = strtok(NULL, "-");
+    sscanf(token, "H:%d", &sensorInfo->humidity);
+
+    token = strtok(NULL, "-");
+    sscanf(token, "L:%d", &sensorInfo->lightIntensity);
+}
+
+void printSensorInfo(const SensorInfo* sensorInfo) {
+    printf("Sensor ID: %d\n", sensorInfo->sensorID);
+    printf("Temperature: %.1f C\n", sensorInfo->temperature);
+    printf("Humidity: %d\n", sensorInfo->humidity);
+    printf("Light Intensity: %d%%\n", sensorInfo->lightIntensity);
+}
+
+int main() {
+    const char* data = "S1-T:36.5-H:100-L:50";
+    SensorInfo sensorInfo;
+
+    parseData(data, &sensorInfo);
+    printSensorInfo(&sensorInfo);
+
+    return 0;
+}

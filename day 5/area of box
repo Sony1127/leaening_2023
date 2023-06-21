@@ -1,0 +1,64 @@
+#include <stdio.h>
+
+typedef struct {
+    float length;
+    float width;
+    float height;
+} Box;
+
+float calculateVolume(const Box* box) {
+    return box->length * box->width * box->height;
+}
+
+float calculateSurfaceArea(const Box* box) {
+    return 2 * (box->length * box->width + box->length * box->height + box->width * box->height);
+}
+
+int main() {
+    Box box;
+    box.length = 5.0;
+    box.width = 3.0;
+    box.height = 2.0;
+
+    Box* boxPtr = &box;
+
+    printf("Volume (using (*) and (.) operator): %.2f\n", (*boxPtr).length * (*boxPtr).width * (*boxPtr).height);
+    printf("Surface Area (using (*) and (.) operator): %.2f\n", 2 * ((*boxPtr).length * (*boxPtr).width + (*boxPtr).length * (*boxPtr).height + (*boxPtr).width * (*boxPtr).height));
+
+    printf("Volume (using (->) operator): %.2f\n", boxPtr->length * boxPtr->width * boxPtr->height);
+    printf("Surface Area (using (->) operator): %.2f\n", 2 * (boxPtr->length * boxPtr->width + boxPtr->length * boxPtr->height + boxPtr->width * boxPtr->height));
+
+    return 0;
+}
+#include <stdio.h>
+
+typedef struct {
+    float length;
+    float width;
+    float height;
+} Box;
+
+float calculateVolume(const Box* box) {
+    return box->length * box->width * box->height;
+}
+
+float calculateSurfaceArea(const Box* box) {
+    return 2 * (box->length * box->width + box->length * box->height + box->width * box->height);
+}
+
+int main() {
+    Box box;
+    box.length = 5.0;
+    box.width = 3.0;
+    box.height = 2.0;
+
+    Box* boxPtr = &box;
+
+    printf("Volume (using (*) and (.) operator): %.2f\n", (*boxPtr).length * (*boxPtr).width * (*boxPtr).height);
+    printf("Surface Area (using (*) and (.) operator): %.2f\n", 2 * ((*boxPtr).length * (*boxPtr).width + (*boxPtr).length * (*boxPtr).height + (*boxPtr).width * (*boxPtr).height));
+
+    printf("Volume (using (->) operator): %.2f\n", boxPtr->length * boxPtr->width * boxPtr->height);
+    printf("Surface Area (using (->) operator): %.2f\n", 2 * (boxPtr->length * boxPtr->width + boxPtr->length * boxPtr->height + boxPtr->width * boxPtr->height));
+
+    return 0;
+}

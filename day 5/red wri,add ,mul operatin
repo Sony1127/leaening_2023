@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+typedef struct {
+    float real;
+    float imaginary;
+} ComplexNumber;
+
+void readComplexNumber(ComplexNumber* num) {
+    printf("Enter the real part: ");
+    scanf("%f", &(num->real));
+    printf("Enter the imaginary part: ");
+    scanf("%f", &(num->imaginary));
+}
+
+void writeComplexNumber(const ComplexNumber* num) {
+    printf("%.2f + %.2fi\n", num->real, num->imaginary);
+}
+
+ComplexNumber addComplexNumbers(const ComplexNumber* num1, const ComplexNumber* num2) {
+    ComplexNumber result;
+    result.real = num1->real + num2->real;
+    result.imaginary = num1->imaginary + num2->imaginary;
+    return result;
+}
+
+ComplexNumber multiplyComplexNumbers(const ComplexNumber* num1, const ComplexNumber* num2) {
+    ComplexNumber result;
+    result.real = (num1->real * num2->real) - (num1->imaginary * num2->imaginary);
+    result.imaginary = (num1->real * num2->imaginary) + (num1->imaginary * num2->real);
+    return result;
+}
+
+int main() {
+    ComplexNumber num1, num2, sum, product;
+
+    printf("Enter the first complex number:\n");
+    readComplexNumber(&num1);
+
+    printf("Enter the second complex number:\n");
+    readComplexNumber(&num2);
+
+    printf("First complex number: ");
+    writeComplexNumber(&num1);
+
+    printf("Second complex number: ");
+    writeComplexNumber(&num2);
+
+    sum = addComplexNumbers(&num1, &num2);
+    printf("Sum of the two complex numbers: ");
+    writeComplexNumber(&sum);
+
+    product = multiplyComplexNumbers(&num1, &num2);
+    printf("Product of the two complex numbers: ");
+    writeComplexNumber(&product);
+
+    return 0;
+}

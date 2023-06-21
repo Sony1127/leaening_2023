@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Student {
+    int rollno;
+    char name[20];
+    float marks;
+};
+
+void swapStudents(struct Student *students, int index1, int index2) {
+    struct Student temp = students[index1];
+    students[index1] = students[index2];
+    students[index2] = temp;
+}
+
+void displayStudents(const struct Student *students, int numStudents) {
+    printf("\nStudent details:\n");
+    for (int i = 0; i < numStudents; i++) {
+        printf("Roll No: %d, Name: %s, Marks: %.2f\n",
+               students[i].rollno, students[i].name, students[i].marks);
+    }
+}
+
+int main() {
+    int numStudents;
+    printf("Enter the number of students: ");
+    scanf("%d", &numStudents);
+    getchar(); // Clear the newline character from the input buffer
+
+    struct Student *students = malloc(numStudents * sizeof(struct Student));
+    if (students == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
+
+    // Initialize the array of structures (e.g., using user input or any other method)
+
+    printf("Enter the indexes of the students to swap (0 to %d): ", numStudents - 1);
+    int index1, index2;
+    scanf("%d %d", &index1, &index2);
+    getchar(); // Clear the newline character from the input buffer
+
+    if (index1 >= 0 && index1 < numStudents && index2 >= 0 && index2 < numStudents) {
+        swapStudents(students, index1, index2);
+        printf("Students swapped successfully.\n");
+        displayStudents(students, numStudents);
+    } else {
+        printf("Invalid indexes. Swap operation aborted.\n");
+    }
+
+    free(students);
+    return 0;
+}
